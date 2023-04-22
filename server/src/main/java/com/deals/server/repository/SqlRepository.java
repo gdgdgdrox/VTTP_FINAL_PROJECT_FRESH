@@ -81,7 +81,7 @@ public class SqlRepository{
     }
 
     //update the valid status of deals that are expiring to false to prevent expiring deals from being displayed
-    @Scheduled(fixedRate = 4*60*60*1000)
+    // @Scheduled(fixedRate = 4*60*60*1000)
     public void updateValidStatus(){
         System.out.println(Utils.getCurrentDateTime() + ": Checking and updating validity status..");
         int numRowsUpdated = jdbcTemplate.update(SqlQueries.UPDATE_VALID_STATUS);

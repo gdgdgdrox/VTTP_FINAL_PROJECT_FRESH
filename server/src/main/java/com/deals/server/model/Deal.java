@@ -54,7 +54,7 @@ public class Deal implements Serializable{
 
     public static Deal createDeal(SqlRowSet result){
         Deal deal = new Deal();
-        deal.setUuid(result.getString("uuid"));
+        deal.setUuid(result.getString("deal_id"));
         deal.setName(result.getString("name"));
         deal.setDescription(result.getString("description"));
         deal.setImageURL(result.getString("image_url"));

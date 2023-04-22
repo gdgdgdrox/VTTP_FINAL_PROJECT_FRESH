@@ -12,6 +12,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -22,6 +23,7 @@ import com.deals.server.repository.S3Repository;
 import com.deals.server.repository.SqlRepository;
 
 import jakarta.json.Json;
+import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonValue;
 
@@ -39,6 +41,9 @@ public class DealFinder {
 
     @Autowired
     private SqlRepository sqlRepo;
+
+    @Autowired
+    private EmailService emailService;
 
     @Value("${tih.api.key}")
     private String apiKey;
@@ -94,31 +99,48 @@ public class DealFinder {
         for (JsonValue jv : jsonPayload.getJsonArray("data")){
             JsonObject jo = jv.asJsonObject();
             Deal deal = Deal.createDeal(jo);
-            // String imageUUID = jo.getJsonObject("poiInfo").getJsonArray("images").get(1).asJsonObject().getString("uuid");
-            String imageUUID = jo.getJsonArray("images").get(0).asJsonObject().getString("uuid");
-            byte[] imageBinary = getImageFromAPI(imageUUID);
-            String imageURL = s3Repo.storeImage(imageBinary, imageUUID);
-            deal.setImageURL(imageURL);
-            deals.add(deal);
+            JsonArray images = jo.getJsonArray("images");
+            //only extracting 1 image to display
+            String imageUUID = images.get(0).asJsonObject().getString("uuid");
+            try {
+                byte[] imageBinary = getImageFromAPI(imageUUID);
+                String imageURL = s3Repo.storeImage(imageBinary, imageUUID);
+                deal.setImageURL(imageURL);
+                deals.add(deal);
+            }
+            catch (HttpServerErrorException httpServerErrorException){
+                System.out.println("Server threw exception for image ID: %s".formatted(imageUUID));
+                //check if there are other images that we can get
+                if (images.size() > 1){
+                    byte[] imageBinary = getImageFromAPI(images.get(1).asJsonObject().getString("uuid"));
+                    //TO DO: What happen if this throws exception again?
+                    String imageURL = s3Repo.storeImage(imageBinary, imageUUID);
+                    deal.setImageURL(imageURL);
+                    deals.add(deal);
+                }
+                else{
+                    deal.setImageURL("C:/Users/gdfoo/Desktop/final_project/server/src/main/resources/static/no-image-available-icon-6.png");
+                }
+
+            }
         }
         return deals;
     }
 
-    public byte[] getImageFromAPI(String imageUUID){
+    public byte[] getImageFromAPI(String imageUUID) throws HttpServerErrorException{
         HttpHeaders headers = new HttpHeaders();
         String fullUrl = UriComponentsBuilder.fromUriString("https://api.stb.gov.sg/media/download/v2/" + imageUUID)
                     // .queryParam("fileType", "Thumbnail 1080h")
                     .toUriString();
                     // .replace("%20", " ");
-		headers.set("x-api-key", "apiKey");
+		headers.set("x-api-key", apiKey);
 		RequestEntity<Void> reqEntity = RequestEntity.get(fullUrl)
 													.headers(headers)
 													.build();
         ResponseEntity<byte[]> respEntity = restTemplate.exchange(reqEntity, byte[].class);
-
         byte[] imageBinary = respEntity.getBody();
-
         return imageBinary;
+
     }
 
 
@@ -154,13 +176,18 @@ public class DealFinder {
         return reqEntity;
     }
 
-    // check for new deals every 12 hours and save to DB
-    @Scheduled(fixedRate = 12*60*60*1000)
+    // check for new deals every 12 hours. if found new deals, save to DB and push email to subscribers
+    // @Scheduled(fixedRate = 12*60*60*1000)
     public void saveNewDeals(){
         List<Deal> newDeals = getNewDeals();
         if (newDeals.size() > 0){
             System.out.println(Utils.getCurrentDateTime() + ": Saving new deals");
             sqlRepo.saveDealsAndDetails(newDeals);
+            List<String> subscriberEmails = emailService.getSubscribersEmail();
+            if (subscriberEmails.size() > 0){
+                emailService.sendEmail(subscriberEmails, newDeals);
+            }
+
         }
         else{
             System.out.println("No new deals found.");
@@ -170,6 +197,7 @@ public class DealFinder {
     public List<Deal> getNewDeals(){
         RequestEntity<Void> reqEntity = createRequestEntity();
         List<String> existingUUIDS = sqlRepo.getUUIDS();
+        System.out.println("EXISTING UUID SIZE > " + existingUUIDS.size());
         // TO DO - error handling
         System.out.println(Utils.getCurrentDateTime() + ": Calling API to check for new deals");
         ResponseEntity<String> respEntity = restTemplate.exchange(reqEntity, String.class);
@@ -188,7 +216,6 @@ public class DealFinder {
                 String imageURL = s3Repo.storeImage(imageBinary, imageUUID);
                 newDeal.setImageURL(imageURL);
                 newDeals.add(newDeal);
-                System.out.println(newDeal);
             }
         }
         return newDeals;
