@@ -33,3 +33,22 @@ CREATE TABLE deal_details (
     longitude DECIMAL(10,7),
     FOREIGN KEY (deal_id) REFERENCES deals(uuid) ON DELETE CASCADE
 );
+
+CREATE TABLE user_info (
+    email varchar(56) NOT NULL PRIMARY KEY,
+    password varchar(128) NOT NULL,
+    first_name varchar(56) NOT NULL,
+    last_name varchar(56) NOT NULL,
+    dob date NOT NULL,
+    receive_update boolean default false
+);
+
+CREATE TABLE user_deal (
+    deal_id varchar(128) NOT NULL,
+    email varchar(56) NOT NULL,
+    PRIMARY KEY (deal_id, email),
+    FOREIGN KEY (email) REFERENCES user_info(email) 
+    ON DELETE CASCADE 
+    ON UPDATE CASCADE
+);
+

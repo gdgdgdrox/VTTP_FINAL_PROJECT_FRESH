@@ -76,7 +76,7 @@ public class SqlQueries {
             (select deal_id from deal_details where valid_end_date <= NOW());
             """;
     
-    public static final String USER_EXIST = "SELECT count(*) FROM USER_INFO WHERE EMAIL = ?;";
+    public static final String USER_EXIST = "SELECT count(*) FROM user_info WHERE EMAIL = ?;";
 
     public static final String CREATE_USER = """
         INSERT INTO user_info (

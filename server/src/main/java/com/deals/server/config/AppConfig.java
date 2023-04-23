@@ -38,8 +38,8 @@ public class AppConfig {
     private String redisHost;
     @Value("${spring.redis.port}")
     private Integer redisPort;
-    // @Value("${spring.redis.password}")
-    // private String redisPassword;
+    @Value("${spring.redis.password}")
+    private String redisPassword;
 
     @Bean
     public AmazonS3 getS3Client(){
@@ -56,10 +56,9 @@ public class AppConfig {
     public RedisTemplate<String, Object> initRedisTemplate() {
         // Configure the Redis database
         RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
-        // System.out.println("Redis Password %s".formatted(redisPassword));
         redisConfig.setHostName(redisHost);
         redisConfig.setPort(redisPort);
-        // redisConfig.setPassword(redisPassword);
+        redisConfig.setPassword(redisPassword);
 
         // Create an instance of the Jedis driver
         JedisClientConfiguration jedisConfig = JedisClientConfiguration.builder().build();
