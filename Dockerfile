@@ -72,5 +72,3 @@ EXPOSE ${PORT}
 ENTRYPOINT java -Dserver.port=${PORT} -jar server.jar
 
 
-
-# 
