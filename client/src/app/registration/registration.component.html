@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="row mt-5 pt-5">
+    <div class="col-lg-4 bg-white m-auto">
+      <h2 class="bg-success text-white text-center pt-3 pb-3">Account Registration</h2>
+      <form [formGroup]="form" (submit)="register()">
+        <div>
+          <div class="input-group mb-3" [ngClass]="{'has-error': form.controls['firstName'].invalid && form.controls['firstName'].dirty}">
+            <span class="input-group-text"><i class="fa fa-user"></i></span>
+            <input type="text" class="form-control" formControlName="firstName" placeholder="First Name">
+          </div>
+          <p *ngIf="form.controls['firstName'].invalid && form.controls['firstName'].dirty" class="text-danger">
+            <em>This field is required</em>
+          </p>
+        </div>
+        <div>
+          <div class="input-group mb-3" [ngClass]="{'has-error': form.controls['lastName'].invalid && form.controls['lastName'].dirty}">
+            <span class="input-group-text"><i class="fa fa-user"></i></span>
+            <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name">
+          </div>
+          <p *ngIf="form.controls['lastName'].invalid && form.controls['lastName'].dirty" class="text-danger">
+            <em>This field is required</em>
+          </p>
+        </div>
+        <div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Date of Birth</span>
+            <input type="date" class="form-control" formControlName="dob">
+          </div>
+          <p *ngIf="form.controls['dob'].invalid && form.controls['dob'].dirty" class="text-danger">
+            <em>Please select your date of birth</em>
+          </p>
+        </div>
+        <div>
+          <div class="input-group mb-3" [ngClass]="{'has-error': form.controls['email'].invalid && form.controls['email'].dirty}">
+            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+            <input type="email" class="form-control" formControlName="email" placeholder="Email">
+          </div>
+          <div>
+            <p *ngIf="form.get('email')?.hasError('email') && form.controls['email'].dirty" class="text-danger">
+              <em>Please enter a valid email</em>
+            </p>
+            <p *ngIf="form.get('email')?.hasError('required') && form.controls['email'].dirty" class="text-danger">
+              <em>This field is required</em>
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="input-group mb-3" [ngClass]="{'has-error': form.controls['password'].invalid && form.controls['password'].dirty}">
+            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+            <input type="password" class="form-control" formControlName="password" placeholder="Password">
+          </div>
+          <div>
+            <p *ngIf="form.get('password')?.hasError('minlength') && form.controls['password'].dirty" class="text-danger">
+              <em>Your password should have at least 7 characters</em>
+            </p>
+            <p *ngIf="form.get('password')?.hasError('required') && form.controls['password'].dirty" class="text-danger">
+              <em>This field is required</em>
+            </p>
+          </div>
+        </div>
+        <div class="form-check mb-3">
+          <input id="receiveUpdate" type="checkbox" class="form-check-input" formControlName="receiveUpdate">
+          <label for="receiveUpdate" class="form-check-label fw-light fst-italic">I wish to be informed of new deals</label>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-success" [disabled]="successMessage  || form.invalid" >Register</button>
+          <a class="nav-link pt-2 pb-2 text-center text-info" routerLink="/login">
+            Already have an account? 
+            <span><strong>Login here</strong></span>
+          </a>
+        </div>
+      </form>
+      <div *ngIf="successMessage" class="alert alert-success mt-3 text-center">
+        <i class="fa-regular fa-thumbs-up"></i>
+        <span class="ms-2"> {{ successMessage }}</span>
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span class="ms-2">{{ errorMessage }}</span>
+      </div>
+      <div *ngIf="isLoading" class="d-flex justify-content-center">
+        <app-spinner></app-spinner>
+      </div>    
+    </div>
+  </div>
+</div>

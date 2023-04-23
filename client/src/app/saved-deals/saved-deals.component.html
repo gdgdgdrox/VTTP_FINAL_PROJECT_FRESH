@@ -1,0 +1,90 @@
+<div *ngIf="isLoading" class="d-flex justify-content-center align-items-center vh-100">
+    <h3>Retrieving saved deals</h3>
+    <br>
+    <app-spinner></app-spinner>
+</div>     
+<div *ngIf="!isLoading">
+    <div class="container" *ngIf="userDeals.length == 0">
+        <div class="d-flex flex-column align-items-center justify-content-center vh-100">
+          <h1 class="text-center">You have not saved any deals.</h1>
+            <p class="fs-4">Click 
+              <a routerLink="/">here</a>
+              to begin your search
+            </p>
+        </div>
+      </div>  
+    <div class="container" *ngIf="userDeals.length > 0">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 mt-5 mb-5" *ngFor="let userDeal of userDeals; let idx = index">
+        <mat-card class="deal-card">
+            <mat-card-header>
+                <div mat-card-avatar class="header-image"></div>
+                <mat-card-title >{{ userDeal.name }}</mat-card-title>
+                <mat-card-subtitle>{{ userDeal.venue }}</mat-card-subtitle>
+            </mat-card-header>
+            <img 
+            data-bs-toggle="modal"
+            [attr.data-bs-target]="'#' + idx" 
+            mat-card-image class="deal-image" 
+            [src]="userDeal.imageURL" 
+            alt="img"/>
+            <mat-card-actions>
+                <button type="button" class="btn btn-danger" (click)="deleteDeal(userDeal.uuid)">X</button>
+            </mat-card-actions>
+        </mat-card>
+        <div *ngIf="deleteErrorMessage" class="alert alert-danger mt-3 text-center">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span class="ms-2">{{ deleteErrorMessage }}</span>
+          </div>
+    
+        <!-- MODAL -->
+            <div class="modal fade" [id]="idx" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-4 fw-bold" id="exampleModalLabel">
+                            {{userDeal.name}}
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(userDeal.description)"></div>
+                        <a [href]="userDeal.websiteURL" link-offset-2>find out more</a>
+                        <hr>
+                        <div class="promotion-period">
+                            <i class="fa-solid fa-clock"></i>
+                            <span class="promotion-date">{{userDeal.validStartDate | date:'mediumDate'}} - {{userDeal.validEndDate | date:'mediumDate'}}</span>
+                        </div>
+                        <hr>
+                        <div class="tnc">
+                            <i class="fa-brands fa-readme"></i>
+                            <a class="btn btn-link" data-bs-toggle="collapse" [href]="'#tnc-' + idx" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Terms & Conditions
+                            </a>                        
+                            <div class="collapse" [id]="'tnc-' + idx">
+                            <div class="card card-body" [innerHTML]="sanitizer.bypassSecurityTrustHtml(userDeal.tnc)">
+                            </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="deal-location">
+                            <h3 class="modal-title fs-6">{{userDeal.venue}}</h3>
+                            <app-location-map
+                                [longitude]="userDeal.longitude"
+                                [latitude]="userDeal.latitude"
+                                >
+                            </app-location-map>
+                            <div #mapContainer style="height: 200px; width: 200px"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>    

@@ -1,0 +1,25 @@
+.deal-card {
+    max-width: 400px;
+    height: 100%;
+    border: 1px dotted black
+}
+
+.deal-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-image {
+    background-image: url("../../assets/images/category/fnb/1.png");
+    background-size: cover;
+}
+
+.modal-title{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    /* color: red; */
+}
+
+.promotion-date{
+    padding: 0px 20px;
+}

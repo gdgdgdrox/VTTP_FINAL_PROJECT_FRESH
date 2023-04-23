@@ -1,0 +1,9 @@
+.deal-keyword {
+    /* text-decoration: underline;  */
+    text-decoration-color: blueviolet;
+    color: blueviolet
+}
+
+.btn-outline-success{
+    border-width: 2px
+}

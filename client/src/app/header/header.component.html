@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-gray">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/"><i class="fa-solid fa-house"></i></a>      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li *ngIf="!loggedInEmail" class="nav-item">
+            <a id="login" class="nav-link" routerLink="/login">
+              Login
+            </a>
+          </li>
+          <li *ngIf="loggedInEmail" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{loggedInEmail}}</a>
+            <ul class="dropdown-menu dropdown-menu-end bg-gray " aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item text-white" href="#" routerLink="/saved-deals">Saved Deals</a></li>
+              <li><a class="dropdown-item text-white" href="#" (click)="logout()">Logout</a>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  

@@ -1,0 +1,146 @@
+<div *ngIf="isLoading" class="d-flex justify-content-center align-items-center vh-100">
+  <app-spinner></app-spinner>
+</div>       
+<div *ngIf="!isLoading">
+  <div class="container" *ngIf="deals.length == 0">
+      <div class="d-flex flex-column align-items-center justify-content-center vh-100">
+        <h1 class="text-center">Oops we could not find anything..</h1>
+        <h3>Back to <a routerLink="/">Search</a></h3>
+    </div>  
+  </div>
+  <div class="container" *ngIf="deals.length > 0">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h1 class="display-3 fw-medium text-dark-emphasis mt-2 mb-2">{{ dealCategory.replace('_', ' & ') | titlecase }} ({{ deals.length }})</h1>
+        <hr class="border border-primary border-2 w-50 mx-auto">
+      </div>
+    </div>
+    <div class="row">
+      <div
+        class="col-12 col-md-6 col-lg-4 mb-5"
+        *ngFor="let deal of deals; let idx = index"
+      >
+        <mat-card class="deal-card">
+          <mat-card-header>
+            <div mat-card-avatar class="header-image"></div>
+            <mat-card-title>{{ deal.name }}</mat-card-title>
+            <mat-card-subtitle>{{ deal.venue }}</mat-card-subtitle>
+          </mat-card-header>
+          <img
+            data-bs-toggle="modal"
+            [attr.data-bs-target]="'#' + idx"
+            mat-card-image
+            class="deal-image"
+            [src]="deal.imageURL"
+            alt="img"
+          />
+          <mat-card-actions class="d-flex justify-content-between">
+            <button
+              type="button"
+              id="save-btn"
+              [class]="deal.saved ? 'btn btn-primary' : 'btn btn-outline-primary'"
+              (click)="toggleSave(deal.uuid, idx)"
+            >
+            <ng-container *ngIf="deal.saved">
+              <i class="fas fa-heart"></i> SAVED
+            </ng-container>
+            <ng-container *ngIf="!deal.saved">
+              <i class="far fa-heart"></i> SAVE
+            </ng-container>
+            </button>
+            <button type="button" class="btn btn-warning" (click)="shareDeal(deal)">
+              <i class="fa-regular fa-share-from-square"></i>
+              SHARE
+            </button>
+          </mat-card-actions>
+        </mat-card>
+  
+        <!-- MODAL -->
+        <div
+          class="modal fade"
+          [id]="idx"
+          tabindex="-1"
+          aria-labelledby="modalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header bg-primary-subtle">
+                <h1 class="modal-title fs-4 fw-bold" id="modalLabel">
+                  {{ deal.name }}
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div
+                  [innerHTML]="
+                    sanitizer.bypassSecurityTrustHtml(deal.description)
+                  "
+                ></div>
+                <!-- not working because of useHash -->
+                <a class="link-primary" [href]="'https://' + deal.websiteURL" target="_blank">Find out more</a>
+                <hr />
+                <div class="promotion-period">
+                  <i class="fa-solid fa-clock"></i>
+                  <span class="promotion-date"
+                    >{{ deal.validStartDate | date : "mediumDate" }} -
+                    {{ deal.validEndDate | date : "mediumDate" }}</span
+                  >
+                </div>
+                <hr />
+                <div class="tnc">
+                  <i class="fa-brands fa-readme"></i>
+                  <a
+                    class="btn btn-link"
+                    data-bs-toggle="collapse"
+                    [href]="'#tnc-' + idx"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                  >
+                    Terms & Conditions
+                  </a>
+                  <span>
+                    <i class="fas fa-sort-down">
+                  </i>
+                  </span>
+                  <div class="collapse" [id]="'tnc-' + idx">
+                    <div
+                      class="card card-body"
+                      [innerHTML]="sanitizer.bypassSecurityTrustHtml(deal.tnc)"
+                    ></div>
+                  </div>
+                </div>
+                <hr />
+                <div class="deal-location">
+                  <h3 class="modal-title fs-6">{{ deal.venue }}</h3>
+                  <app-location-map
+                    [longitude]="deal.longitude"
+                    [latitude]="deal.latitude"
+                  >
+                  </app-location-map>
+                  <div #mapContainer style="height: 200px; width: 200px"></div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

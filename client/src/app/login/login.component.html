@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row mt-5 pt-5">
+      <div class="col-lg-4 bg-white m-auto">
+        <h2 class="bg-success text-white text-center pt-3 pb-3">Login</h2>
+        <form (ngSubmit)="login(loginForm)" #loginForm="ngForm">
+          <div class="input-group mb-3">
+            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+            <input type="email" class="form-control" placeholder="Email" name="email" required email ngModel>
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+            <input type="password" class="form-control" placeholder="Password" name="password" minlength="7" required ngModel>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success" [disabled]="loginForm.invalid || isLoading" >Login</button>
+            <a class="nav-link pt-2 pb-2 text-center text-info" routerLink="/register">
+              New?
+              <span><strong>Register here</strong></span>
+            </a>
+          </div>
+        </form>
+        <div *ngIf="successMessage" class="alert alert-success mt-3 text-center">
+          <i class="fa-regular fa-thumbs-up"></i>
+          <span class="ms-2"> {{ successMessage }}</span>
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span class="ms-2">{{ errorMessage }}</span>
+        </div>
+        <div *ngIf="isLoading" class="d-flex justify-content-center">
+          <app-spinner></app-spinner>
+        </div>        
+      </div>
+    </div>
+  </div>

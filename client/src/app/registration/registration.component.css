@@ -1,0 +1,12 @@
+.input-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .hint {
+    font-style: italic;
+  }
+  
+.has-error{
+  border: 2px solid red;
+}

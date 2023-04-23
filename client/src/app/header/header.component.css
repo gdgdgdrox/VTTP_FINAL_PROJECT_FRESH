@@ -1,0 +1,12 @@
+.bg-gray {
+    background-color: #333333;
+  }
+
+  /* suuposed to change the color of the dropdown text to black upon hover but not working */
+  .dropdown-menu a.dropdown-item a:hover{
+    color: black;
+  }
+  
+#login{
+  color: white
+}
