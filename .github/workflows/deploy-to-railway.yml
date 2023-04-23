@@ -26,6 +26,7 @@ jobs:
       - name: Deploy
         run: railway up
         env:
+          RAILWAY_PROJECT_ID: 525632b1-e79d-406e-b2ca-bebb7ca8969d
           RAILWAY_TOKEN: ${{ secrets.GD_RAILWAY_TOKEN }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           TIH_API_KEY: ${{ secrets.TIH_API_KEY }}
