@@ -26,17 +26,4 @@ jobs:
       - name: Deploy
         run: railway up
         env:
-          RAILWAY_PROJECT_ID: 525632b1-e79d-406e-b2ca-bebb7ca8969d
           RAILWAY_TOKEN: ${{ secrets.GD_RAILWAY_TOKEN }}
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          TIH_API_KEY: ${{ secrets.TIH_API_KEY }}
-          SPACES_ACCESS_KEY: ${{ secrets.SPACES_ACCESS_KEY }}
-          SPACES_SECRET_KEY: ${{ secrets.SPACES_SECRET_KEY }}
-          SPRING_MAIL_HOST: ${{ secrets.SPRING_MAIL_HOST }}
-          SPRING_MAIL_PASSWORD: ${{ secrets.SPRING_MAIL_PASSWORD}}
-          SPRING_MAIL_PORT: ${{ secrets.SPRING_MAIL_PORT }}
-          SPRING_MAIL_USERNAME: ${{ secrets.SPRING_MAIL_USERNAME}}
-          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
-          SPRING_REDIS_HOST: ${{ secrets.SPRING_REDIS_HOST }}
-          SPRING_REDIS_PORT: ${{ secrets.SPRING_REDIS_PORT }}
-          SPRING_REDIS_PASSWORD: ${{ secrets.SPRING_REDIS_PASSWORD }}
