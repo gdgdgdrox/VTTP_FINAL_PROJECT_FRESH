@@ -39,5 +39,3 @@ jobs:
           SPRING_REDIS_HOST: ${{ secrets.SPRING_REDIS_HOST }}
           SPRING_REDIS_PORT: ${{ secrets.SPRING_REDIS_PORT }}
           SPRING_REDIS_PASSWORD: ${{ secrets.SPRING_REDIS_PASSWORD }}
-        
-#
