@@ -117,7 +117,7 @@
                   </div>
                 </div>
                 <hr />
-                <div class="deal-location">
+                <div class="deal-location" *ngIf="deal.longitude !== 0 && deal.latitude !== 0">
                   <h3 class="modal-title fs-6">{{ deal.venue }}</h3>
                   <app-location-map
                     [longitude]="deal.longitude"

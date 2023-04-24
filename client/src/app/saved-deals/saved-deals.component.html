@@ -68,15 +68,15 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="deal-location">
-                            <h3 class="modal-title fs-6">{{userDeal.venue}}</h3>
+                        <div class="deal-location" *ngIf="userDeal.longitude !== 0 && userDeal.latitude !== 0">
+                            <h3 class="modal-title fs-6">{{ userDeal.venue }}</h3>
                             <app-location-map
-                                [longitude]="userDeal.longitude"
-                                [latitude]="userDeal.latitude"
-                                >
+                              [longitude]="userDeal.longitude"
+                              [latitude]="userDeal.latitude"
+                            >
                             </app-location-map>
                             <div #mapContainer style="height: 200px; width: 200px"></div>
-                        </div>
+                          </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
