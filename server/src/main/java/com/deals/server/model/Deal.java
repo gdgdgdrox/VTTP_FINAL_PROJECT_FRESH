@@ -1,7 +1,6 @@
 package com.deals.server.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -19,8 +18,6 @@ public class Deal implements Serializable{
     private String uuid;
     private String name;
     private String description;
-
-    //create index for category?
     private String category;
     private String imageURL;
     private String venue;

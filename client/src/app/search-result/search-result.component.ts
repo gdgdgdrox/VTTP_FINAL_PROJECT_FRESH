@@ -1,5 +1,5 @@
 import { SearchService } from './../search.service';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Deal } from '../models';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -52,25 +52,21 @@ export class SearchResultComponent implements OnInit{
   toggleSave(uuid:string, idx: number) {
     // check if user is login. if not logged in, dont allow them to toggle and direct them to login page instead
     if (!this.userService.isLoggedIn){
-      console.log('user is not logged in. directing to login page.');
       this.router.navigate(['/login']);
     }
     else{
       const deal = this.deals[idx];
       deal.saved = !deal.saved
       if (deal.saved) {
-        console.log(`saving ${uuid}`);
         this.dealIDsForSaving.push(deal.uuid);
         this.userService.addDeal(deal.uuid);
       } else {
-        console.log(`removing ${uuid}`);
         const index = this.dealIDsForSaving.findIndex(dealUUID => dealUUID === uuid);
         this.userService.removeDeal(uuid);
         if (index !== -1) {
           this.dealIDsForSaving.splice(index, 1);
         }
       }
-      console.log(this.dealIDsForSaving.length);
     }
   }
 
@@ -79,7 +75,6 @@ export class SearchResultComponent implements OnInit{
   }
 
   shareDeal(deal:Deal){
-    console.log(deal);
     if (navigator.share) {
       navigator.share({
         title: 'Hey check out this deal',
@@ -87,16 +82,15 @@ export class SearchResultComponent implements OnInit{
         url: deal.websiteURL
       })
       .then(() => {
-        console.log('Deal shared successfully');
+        // console.log('Deal shared successfully');
       })
       .catch((error) => {
         console.error('Failed to share deal:', error);
       });
     } else {
-      // Web Share API is not supported, show an error message or fallback option
-      console.error('Web Share API is not supported in this browser');
+        console.error('Web Share API is not supported in this browser');
+      }
     }
-  }
 
 
 }

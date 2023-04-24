@@ -5,11 +5,11 @@
         <form (ngSubmit)="login(loginForm)" #loginForm="ngForm">
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-            <input type="email" class="form-control" placeholder="Email" name="email" required email ngModel>
+            <input type="email" class="form-control" placeholder="Email" name="email" required email [(ngModel)]="email">
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text"><i class="fa fa-lock"></i></span>
-            <input type="password" class="form-control" placeholder="Password" name="password" minlength="7" required ngModel>
+            <input type="password" class="form-control" placeholder="Password" name="password" minlength="7" required [(ngModel)]="password">
           </div>
           <div class="d-grid">
             <button type="submit" class="btn btn-success" [disabled]="loginForm.invalid || isLoading" >Login</button>

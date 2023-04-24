@@ -16,7 +16,6 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.deals.server.Utils;
 import com.deals.server.model.Deal;
 import com.deals.server.repository.RedisRepository;
 import com.deals.server.repository.S3Repository;
@@ -26,8 +25,10 @@ import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonValue;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class DealFinder {
     
     @Autowired
@@ -51,38 +52,31 @@ public class DealFinder {
     private static final String API_BASE_URL = "https://api.stb.gov.sg/content/deals/v2/search";
 
     public List<Deal> getDealsByCategory(String category){
-        //check if deals is present in Redis
-        System.out.println("Checking Redis for %s deals".formatted(category));
+        //check if deals is present in Redis. if present, return
+        log.info("Checking Redis for {} deals", category);
         Optional<List<Deal>> optDeals = redisRepo.getDeals(category);
         if (optDeals.isPresent()){
-            System.out.println("found in Redis");
+            log.info("Found in Redis");
             return optDeals.get();
         }
-        System.out.println("Cannot find deal in Redis");
-        System.out.println("Checking MySQL for %s deals".formatted(category));
+        log.info("Cannot find deals in Redis. Checking MySQL db");
         List<Deal> deals = sqlRepo.getDealsByCategory(category);
         if (!deals.isEmpty()){
-            System.out.println("found in MySQL");
-            System.out.println("saving to Redis");
+            log.info("Found in MySQL");
+            log.info("Saving to Redis");
             redisRepo.saveDeals(category, deals);
             return deals;
         }
-        System.out.println("Cannot find deal in sql");
-
-        System.out.println("Getting %s deals from API".formatted(category));
+        log.info("Cannot find deals in MySQL. Getting deals from API");
         List<Deal> d = getDealsFromAPI(category);
-        System.out.println("Got back %d deals".formatted(d.size()));
-        System.out.println("Saving to SQL & Redis");
+        log.info("Saving {} deals to SQL & Redis", d.size());
         sqlRepo.saveDealsAndDetails(d);        
         redisRepo.saveDeals(category, d);
-
         return d;
     }
 
     public List<Deal> getDealsByKeyword(String keyword){
-        //1. search mysql db
         return sqlRepo.getDealsByKeyword(keyword);
-        //2. if not in mysql db, search API
     }
     
     public List<Deal> getDealsFromAPI(String category){
@@ -100,7 +94,6 @@ public class DealFinder {
             JsonObject jo = jv.asJsonObject();
             Deal deal = Deal.createDeal(jo);
             JsonArray images = jo.getJsonArray("images");
-            //only extracting 1 image to display
             String imageUUID = images.get(0).asJsonObject().getString("uuid");
             try {
                 byte[] imageBinary = getImageFromAPI(imageUUID);
@@ -109,7 +102,7 @@ public class DealFinder {
                 deals.add(deal);
             }
             catch (HttpServerErrorException httpServerErrorException){
-                System.out.println("Server threw exception for image ID: %s".formatted(imageUUID));
+                log.info("API threw exception for image ID {}", imageUUID);
                 //check if there are other images that we can get
                 if (images.size() > 1){
                     byte[] imageBinary = getImageFromAPI(images.get(1).asJsonObject().getString("uuid"));
@@ -144,10 +137,7 @@ public class DealFinder {
     }
 
 
-
-
-
-// helper functions to create RequestEntity
+    // helper function to create RequestEntity
     public RequestEntity<Void> createRequestEntity(String category){
         String fullUrl = UriComponentsBuilder.fromUriString(API_BASE_URL)
         .queryParam("searchType", "keyword")
@@ -162,7 +152,7 @@ public class DealFinder {
         return reqEntity;
     }
 
-    //hard-coded query params
+    //helper function to create RequestEntity with hard-coded query params for deal categories
     public RequestEntity<Void> createRequestEntity(){
         String fullUrl = UriComponentsBuilder
                             .fromUriString(API_BASE_URL)
@@ -176,13 +166,14 @@ public class DealFinder {
         return reqEntity;
     }
 
-    // check for new deals every 12 hours. if found new deals, save to DB and push email to subscribers
-    // @Scheduled(fixedRate = 12*60*60*1000)
+    // check for new deals every 12 hours. if found new deals, save to DB and send email to subscribers
+    @Scheduled(fixedRate = 12*60*60*1000)
     public void saveNewDeals(){
         List<Deal> newDeals = getNewDeals();
         if (newDeals.size() > 0){
-            System.out.println(Utils.getCurrentDateTime() + ": Saving new deals");
+            log.info("Saving new deals");
             sqlRepo.saveDealsAndDetails(newDeals);
+            log.info("{} new deals saved", newDeals.size());
             List<String> subscriberEmails = emailService.getSubscribersEmail();
             if (subscriberEmails.size() > 0){
                 emailService.sendEmail(subscriberEmails, newDeals);
@@ -190,16 +181,15 @@ public class DealFinder {
 
         }
         else{
-            System.out.println("No new deals found.");
+            log.info("No new deals found.");
         }
     }
 
     public List<Deal> getNewDeals(){
         RequestEntity<Void> reqEntity = createRequestEntity();
         List<String> existingUUIDS = sqlRepo.getUUIDS();
-        System.out.println("EXISTING UUID SIZE > " + existingUUIDS.size());
         // TO DO - error handling
-        System.out.println(Utils.getCurrentDateTime() + ": Calling API to check for new deals");
+        log.info("Calling API to check for new deals");
         ResponseEntity<String> respEntity = restTemplate.exchange(reqEntity, String.class);
         JsonObject jsonPayload = Json.createReader(new StringReader(respEntity.getBody())).readObject();        
         List<Deal> newDeals = new LinkedList<>();
@@ -208,8 +198,9 @@ public class DealFinder {
         for (JsonValue jv : jsonPayload.getJsonArray("data")){
             JsonObject jo = jv.asJsonObject();
             String uuid = jo.getString("uuid");
+
             if (!existingUUIDS.contains(uuid)){
-                System.out.println("New deal found: %s".formatted(uuid));
+                log.info("New deal found. UUID: {}", uuid);
                 Deal newDeal = Deal.createDeal(jo);
                 String imageUUID = jo.getJsonArray("images").get(0).asJsonObject().getString("uuid");
                 byte[] imageBinary = getImageFromAPI(imageUUID);

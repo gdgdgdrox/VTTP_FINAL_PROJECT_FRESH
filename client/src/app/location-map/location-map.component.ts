@@ -7,12 +7,10 @@ import { AfterViewInit, Component, ElementRef, Input} from '@angular/core';
 })
 export class LocationMapComponent implements AfterViewInit{
 
-  //TO DO : refactor to a single object
   @Input()
   latitude!: number;
   @Input()
   longitude!: number;
-  // map!: {latitude: number, longitude: number};
 
   constructor(private elementRef: ElementRef){}
 

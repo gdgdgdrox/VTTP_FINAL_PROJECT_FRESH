@@ -15,6 +15,8 @@
           "options": {
             "outputPath": "dist/client",
             "index": "src/index.html",
+            "serviceWorker": true,
+            "ngswConfigPath":"ngsw-config.json",
             "main": "src/main.ts",
             "polyfills": [
               "zone.js"

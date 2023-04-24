@@ -1,11 +1,9 @@
 package com.deals.server.controller;
 
-import java.io.StringReader;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,12 +15,10 @@ import com.deals.server.Utils;
 import com.deals.server.model.Deal;
 import com.deals.server.service.UserService;
 
-import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
 @RestController
 @RequestMapping(path="api/user")
-@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -30,7 +26,6 @@ public class UserController {
     
     @PostMapping(path="/register")
     public ResponseEntity<String> registerNewUser(@RequestBody String payload){
-        System.out.println("IN REGISTER NEW USER CONTROLLER. PAYLOAD > %s".formatted(payload));
         JsonObject userDetails = Utils.payloadToJson(payload);
         String email = userDetails.getString("email");
         String response = "";
@@ -51,7 +46,6 @@ public class UserController {
 
     @PostMapping(path="/login")
     public ResponseEntity<String> checkLoginCredentials(@RequestBody String payload){
-        System.out.println("IN CHECK LOGIN CONTROLLER. CREDS > %s".formatted(payload));
         JsonObject creds = Utils.payloadToJson(payload);
         boolean isVerified = userService.verifyUserCreds(creds);
         String response = "";
@@ -84,8 +78,6 @@ public class UserController {
     
     @PostMapping(path="/deal/get")
     public ResponseEntity<List<Deal>> getUserDeals(@RequestBody String payload){
-        System.out.println("IN GET USER DEAL CONTROLLER");
-        System.out.println("USER > " + payload);
         String email = Utils.payloadToJson(payload).getString("email");
         List<Deal> userDeals = userService.getUserDeal(email);
         return ResponseEntity.ok(userDeals);
@@ -93,8 +85,6 @@ public class UserController {
 
     @DeleteMapping(path="/deal/delete")
     public ResponseEntity<String> deleteUserDeal(@RequestBody String payload){
-        System.out.println("IN DELETE UESR DEAL CONTROLLER");
-        System.out.println("USER > " + payload);
         JsonObject emailAndDealID = Utils.payloadToJson(payload);
         int deleteCount = userService.deleteUserDeal(emailAndDealID);
         String response = "";

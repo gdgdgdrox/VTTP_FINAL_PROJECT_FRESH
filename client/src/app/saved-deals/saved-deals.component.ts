@@ -31,7 +31,6 @@ export class SavedDealsComponent implements OnInit{
   getUserDeal(email: string){
     this.userService.getUserDeal(email).subscribe({
       next: (resp) => {
-        console.log('got back resp');
         this.userDeals = resp;
         this.isLoading = false;
       },
@@ -43,7 +42,6 @@ export class SavedDealsComponent implements OnInit{
   }
 
   deleteDeal(uuid: string){
-    console.log(`deleting deal id : ${uuid}`);
     this.userService.deleteUserDeal(this.email, uuid)
     .then(resp => {
         this.userDeals = this.userDeals.filter(deal => deal.uuid !== uuid);

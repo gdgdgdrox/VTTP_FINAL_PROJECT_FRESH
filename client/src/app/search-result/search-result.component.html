@@ -11,7 +11,7 @@
   <div class="container" *ngIf="deals.length > 0">
     <div class="row">
       <div class="col-12 text-center">
-        <h1 class="display-3 fw-medium text-dark-emphasis mt-2 mb-2">{{ dealCategory.replace('_', ' & ') | titlecase }} ({{ deals.length }})</h1>
+        <h1 *ngIf="dealCategory" class="display-3 fw-medium text-dark-emphasis mt-2 mb-2">{{ dealCategory.replace('_', ' & ') | titlecase }} ({{ deals.length }})</h1>
         <hr class="border border-primary border-2 w-50 mx-auto">
       </div>
     </div>

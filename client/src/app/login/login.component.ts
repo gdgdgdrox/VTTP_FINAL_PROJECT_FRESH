@@ -9,6 +9,8 @@ import { ExistingUser } from '../models';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  email = 'defaultuser@gmail.com';
+  password = 'defaultuser';
   isLoading = false;
   successMessage = '';
   errorMessage = '';
@@ -21,11 +23,8 @@ export class LoginComponent {
     }
     this.isLoading = true;
     const existingUser = form.value as ExistingUser
-    console.log('existing user > ', existingUser);
     this.userService.login(existingUser).then(resp => {
-                                          console.log(resp);
                                           setTimeout(() => {
-                                            console.log(resp.email);
                                             this.userService.onUser.next(resp.email);
                                             this.userService.loggedInUserEmail = resp.email;
                                             this.userService.isLoggedIn = true;
@@ -33,7 +32,6 @@ export class LoginComponent {
                                             this.successMessage = 'Successfully logged in!';
                                             this.errorMessage = '';
                                           }, 2*1000);
-                                          //TO DO: Navigate to home page
                                         })
                                         .catch(error => {
                                           if (error.status === 401){

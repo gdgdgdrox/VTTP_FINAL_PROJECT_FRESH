@@ -17,12 +17,10 @@ public class RedisRepository {
     private RedisTemplate<String, Object> redisTemplate;
 
     public void saveDeals(String category, List<Deal> deals){
-        //maybe TTL of 24h? since deal expire 24h
         redisTemplate.opsForValue().set(category, deals, Duration.ofMinutes(30));
     }
 
     public Optional<List<Deal>> getDeals(String category){
-        System.out.println("redis key: %s".formatted(category));
         List<Deal> deals = (List<Deal>)redisTemplate.opsForValue().get(category);
         return Optional.ofNullable(deals);
     }

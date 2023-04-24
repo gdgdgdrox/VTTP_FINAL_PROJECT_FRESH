@@ -1,11 +1,8 @@
 package com.deals.server.repository;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,10 +11,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.deals.server.Utils;
 import com.deals.server.model.Deal;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Repository
+@Slf4j
 public class SqlRepository{
 
     @Autowired
@@ -81,12 +80,11 @@ public class SqlRepository{
     }
 
     //update the valid status of deals that are expiring to false to prevent expiring deals from being displayed
-    // @Scheduled(fixedRate = 4*60*60*1000)
+    @Scheduled(fixedRate = 4*60*60*1000)
     public void updateValidStatus(){
-        System.out.println(Utils.getCurrentDateTime() + ": Checking and updating validity status..");
-        int numRowsUpdated = jdbcTemplate.update(SqlQueries.UPDATE_VALID_STATUS);
-        System.out.println();
-
+        log.info("Checking and updating validity status...");
+        int updated = jdbcTemplate.update(SqlQueries.UPDATE_VALID_STATUS);
+        log.info("{} deals had expired", updated);
     }
 
 

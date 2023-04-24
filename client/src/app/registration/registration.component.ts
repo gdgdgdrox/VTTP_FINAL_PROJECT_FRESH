@@ -24,10 +24,9 @@ export class RegistrationComponent implements OnInit {
     return this.fb.group({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
-      // TO DO : use a custom validator to ensure chosen date > current date
       dob: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(7)]),
       receiveUpdate: new FormControl(false)
     })
   }
@@ -35,7 +34,6 @@ export class RegistrationComponent implements OnInit {
   register(){
     this.isLoading = true;
     const user = this.form.value as NewUser;
-    // console.log('user > ', user);
     this.userService.register(user)
       .then(response => {
         setTimeout(() => {
@@ -56,14 +54,6 @@ export class RegistrationComponent implements OnInit {
       });
   }
 
-  // dateValidator (control: FormControl) {
-  //   const date = new Date(control.value);
-  //   const today = new Date();
-  //   if (date > today) {
-  //     return { futureDate: true };
-  //   }
-  //   return null;
-  // }
 }
   
 

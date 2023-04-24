@@ -1,0 +1,131 @@
+{
+  "configVersion": 1,
+  "timestamp": 1682321834721,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/main.a80b7b8ae487c213.js",
+        "/polyfills.6b2666eec982e7c4.js",
+        "/runtime.7ae29a296d479790.js",
+        "/styles.3609916cf825fdb1.css"
+      ],
+      "patterns": [
+        "https:\\/\\/fonts\\.googleapis\\.com\\/css2\\?family=Roboto:wght@300;400;500&display=swap",
+        "https:\\/\\/fonts\\.googleapis\\.com\\/icon\\?family=Material\\+Icons"
+      ]
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/1.f302c3963f7b2393.png",
+        "/assets/images/background/bg-img-1.jpg",
+        "/assets/images/background/bg-img-2.jpg",
+        "/assets/images/background/bg-img-3.jpg",
+        "/assets/images/background/bg-img-4.jpg",
+        "/assets/images/background/bg-img-5.jpg",
+        "/assets/images/background/bg-img-6.jpg",
+        "/assets/images/background/bg-img-8.jpg",
+        "/assets/images/category/fnb/1.png",
+        "/assets/images/category/fnb/2.png",
+        "/assets/images/category/fnb/3.png",
+        "/assets/images/category/fnb/4.png",
+        "/assets/images/manifest/deals_collection_logo_1024x1024.png",
+        "/assets/images/manifest/deals_collection_logo_128x128.png",
+        "/assets/images/manifest/deals_collection_logo_192x192.png",
+        "/assets/images/manifest/deals_collection_logo_400x400.png",
+        "/assets/images/manifest/deals_collection_logo_512x512.png",
+        "/assets/images/manifest/deals_collection_logo_72x72.png",
+        "/bg-img-4.ec30542d408ecccf.jpg",
+        "/fa-brands-400.5f7c5bb77eae788b.ttf",
+        "/fa-brands-400.9210030c21e68a90.woff2",
+        "/fa-regular-400.02ad4ff91ef84f65.woff2",
+        "/fa-regular-400.570a165b064c1468.ttf",
+        "/fa-solid-900.0b5caff7ad4bc179.ttf",
+        "/fa-solid-900.3eae9857c06e9372.woff2",
+        "/fa-v4compatibility.6209cf0172d95b0e.woff2",
+        "/fa-v4compatibility.92dce52f885fd838.ttf"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "home",
+      "patterns": [
+        "\\/api\\/deals"
+      ],
+      "strategy": "freshness",
+      "maxSize": 5,
+      "maxAge": 21600000,
+      "timeoutMs": 10000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/1.f302c3963f7b2393.png": "d2194520edcd97c388066596b9ccd14314713aa1",
+    "/assets/images/background/bg-img-1.jpg": "77769d3298621021d8e40f81cbcecd4690755033",
+    "/assets/images/background/bg-img-2.jpg": "d83ae998b114589e25995ac8080c05412e88df95",
+    "/assets/images/background/bg-img-3.jpg": "cd3563f352239db56f22167d2e29cb38856eac28",
+    "/assets/images/background/bg-img-4.jpg": "e6585086fa2a6a2daba6e5579de18adc054e7a74",
+    "/assets/images/background/bg-img-5.jpg": "82ef93463b4e661e15260851e9098712308de453",
+    "/assets/images/background/bg-img-6.jpg": "33d6091a968b2154a7f952ef1f2e181481d6eeb8",
+    "/assets/images/background/bg-img-8.jpg": "76d0f5e47435a34584f8b9bf2ca011a8600285ed",
+    "/assets/images/category/fnb/1.png": "d2194520edcd97c388066596b9ccd14314713aa1",
+    "/assets/images/category/fnb/2.png": "27c4054c3dcd647a1922034b7f3b0ee965929710",
+    "/assets/images/category/fnb/3.png": "2fc7b6a5d977159db20336e554a2f862b983a871",
+    "/assets/images/category/fnb/4.png": "0128280f2e096dda5114b31e4133090555ab4d98",
+    "/assets/images/manifest/deals_collection_logo_1024x1024.png": "6d7fad6e3661ebd9bcb84d0b4a8eb3508d520340",
+    "/assets/images/manifest/deals_collection_logo_128x128.png": "6eaedd772428487b5a0a60cf53785058dd34413a",
+    "/assets/images/manifest/deals_collection_logo_192x192.png": "51005a102f321646689a45f2122abc505d59063a",
+    "/assets/images/manifest/deals_collection_logo_400x400.png": "13427038eaa9db31bbdb321d26e0e5a064ef51f5",
+    "/assets/images/manifest/deals_collection_logo_512x512.png": "44f1a923774e6dd61ac37dc1e25aa3b3b70944d5",
+    "/assets/images/manifest/deals_collection_logo_72x72.png": "cfa605e727273c791920f842aa3dae9ef754825d",
+    "/bg-img-4.ec30542d408ecccf.jpg": "e6585086fa2a6a2daba6e5579de18adc054e7a74",
+    "/fa-brands-400.5f7c5bb77eae788b.ttf": "f0982a77285d53653845b0a78170b4688db972f1",
+    "/fa-brands-400.9210030c21e68a90.woff2": "4350f9ba93384634faf35f41c503c99c767f1069",
+    "/fa-regular-400.02ad4ff91ef84f65.woff2": "fb363d27cfdfe71a243fa2ac3dab2815232b9b7e",
+    "/fa-regular-400.570a165b064c1468.ttf": "67afa6237670ab99125056f2899129f22912dcf3",
+    "/fa-solid-900.0b5caff7ad4bc179.ttf": "20bd663830188cbadd2264e1daf9497c3ffc3621",
+    "/fa-solid-900.3eae9857c06e9372.woff2": "6b99aa650bd12a36caa14e0127435d8f4cd3ba73",
+    "/fa-v4compatibility.6209cf0172d95b0e.woff2": "8f80d0bbe995f7fe92320fdaec10cd5ccd710a51",
+    "/fa-v4compatibility.92dce52f885fd838.ttf": "a9d072aca9e0fadc2a7167671ce3d6b18d9cd2cc",
+    "/main.a80b7b8ae487c213.js": "590ce53c60ad32bc9329a5e8c84ef75cb6c56556",
+    "/polyfills.6b2666eec982e7c4.js": "7b0b4acdf5218f60c1f664a454748a72f3e9a6e4",
+    "/runtime.7ae29a296d479790.js": "12cfdfd450f222fe2f70ddee2f8c81d4e8b4d5e7",
+    "/styles.3609916cf825fdb1.css": "b16ab51fc4f229f3b8fa51469acc227cb003d6c5"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

@@ -8,9 +8,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import jakarta.json.Json;
-import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
-import jakarta.json.JsonObjectBuilder;
 
 public class Utils {
     public static Timestamp createTimestamp(String date){
@@ -36,13 +34,6 @@ public class Utils {
         return formattedDateTime;
     }
 
-    // public static JsonObject createResponse(String[] keys, String[] values){
-    //     JsonObjectBuilder jsonObjBuilder = Json.createObjectBuilder();
-    //     for (int i = 0; i < keys.length; i++){
-    //         jsonObjBuilder.add(keys[i], values[i]);
-    //     }
-    //     return jsonObjBuilder.build();
-    // }
     public static String createResponse(String key, String value){
         return Json.createObjectBuilder().add(key, value).build().toString();
     }

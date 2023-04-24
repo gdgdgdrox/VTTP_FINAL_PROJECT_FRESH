@@ -3,17 +3,18 @@ package com.deals.server.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.extern.slf4j.Slf4j;
 
 import com.deals.server.model.Deal;
 import com.deals.server.repository.UserRepository;
 
 @Service
+@Slf4j
 public class EmailService {
     
     @Autowired
@@ -44,10 +45,11 @@ public class EmailService {
 			content.append("<a href=\"www.deal4deal.com/user/unsubscribe\">tired of receiving this email? unsubscribe</a>");
 			content.append("</body></html>");
 			helper.setText(content.toString(), true);
-			System.out.println("SENDING");
+			log.info("Sending email to inform subscribers of new deals");
 			mailSender.send(message);
+			log.info(" Email sent");
 		} catch (MessagingException e) {
-			System.out.println("ERROR");
+			log.error(" Something went wrong with sending email");			
 			e.printStackTrace();
 		} 
     }

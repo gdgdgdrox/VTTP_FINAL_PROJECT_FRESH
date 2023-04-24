@@ -10,6 +10,7 @@ COPY client/tsconfig.json .
 COPY client/tsconfig.app.json .
 COPY client/tsconfig.spec.json .
 COPY client/src ./src
+COPY client/ngsw-config.json .
 
 RUN npm install -g @angular/cli
 

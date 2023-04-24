@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 })
 export class UserService {
   isLoggedIn = false;
-  // consider refactoring to only use loggedInUserEmail as an indicator of whether user is logged in (default '' is false) and to get the user email
   loggedInUserEmail = '';
   onUser = new Subject<string>();
   dealIDsForSaving: string[] = [];
@@ -35,7 +34,6 @@ export class UserService {
   
   addDeal(uuid: string){
     this.dealIDsForSaving.push(uuid);
-    console.log(this.dealIDsForSaving.length);
   }
 
   removeDeal(uuid: string){
@@ -43,7 +41,6 @@ export class UserService {
     if (index !== -1) {
       this.dealIDsForSaving.splice(index, 1);
     }
-    console.log(this.dealIDsForSaving.length);
   }
 
   saveUserDeal(email: string, dealIDsForSaving: string[]){

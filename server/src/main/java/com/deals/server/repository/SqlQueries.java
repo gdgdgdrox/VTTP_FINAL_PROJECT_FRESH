@@ -66,7 +66,7 @@ public class SqlQueries {
                 AND
                     valid = true;
              """;
-    public static final String GET_UUIDS = "SELECT UUID FROM DEALS;";
+    public static final String GET_UUIDS = "SELECT UUID FROM deals;";
 
 
     public static final String UPDATE_VALID_STATUS = """

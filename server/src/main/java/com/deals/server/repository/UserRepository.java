@@ -1,6 +1,5 @@
 package com.deals.server.repository;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +25,6 @@ public class UserRepository {
     public boolean userExist(String email){
         int count = jdbcTemplate.queryForObject(SqlQueries.USER_EXIST, Integer.class, email);
         boolean exist = count > 0 ? true : false;
-        System.out.println("USER EXIST %s: ".formatted(email) + exist);
         return exist;
     }
 
@@ -41,9 +39,7 @@ public class UserRepository {
     }
 
     public void saveUserDeal(String email, JsonArray dealIDs) throws DataAccessException{
-        System.out.println("in save user deal repo. email: %s".formatted(email));
         List<Object[]> data = dealIDs.stream().map(dealID -> new Object[]{email, ((JsonString)(dealID)).getString()}).toList();
-        System.out.println(data);
         jdbcTemplate.batchUpdate(SqlQueries.SAVE_USER_DEAL, data);
     }
 
@@ -62,7 +58,6 @@ public class UserRepository {
     }
 
     public int deleteUserDeal(String email, String dealID){
-        System.out.println("DELETING DEAL");
         int deleteCount = jdbcTemplate.update(SqlQueries.DELETE_USER_DEAL, email, dealID);
         return deleteCount;
     }

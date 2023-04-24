@@ -7,9 +7,8 @@
           are you interested in?
         </h4>
         <form class="d-flex" (ngSubmit)="searchByKeyword(form)" #form="ngForm">
-          <!-- TO FIX: required attribute not working -->
-            <input class="form-control me-2" type="text" name="keyword" ngModel required placeholder="E.g. Gardens By The Bay" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input class="form-control me-2" type="text" name="keyword" required ngModel placeholder="E.g. Gardens By The Bay">
+            <button type="submit" class="btn btn-outline-success">Search</button>
         </form>
         <div class="mt-3 d-grid gap-2 d-md-flex justify-content-md-center">
           <button class="btn btn-primary me-md-2" type="button" (click)="searchByCategory('attractions')">Attractions</button>
