@@ -42,6 +42,7 @@ export class SavedDealsComponent implements OnInit{
   }
 
   deleteDeal(uuid: string){
+    this.userService.removeDeal(uuid);
     this.userService.deleteUserDeal(this.email, uuid)
     .then(resp => {
         this.userDeals = this.userDeals.filter(deal => deal.uuid !== uuid);
