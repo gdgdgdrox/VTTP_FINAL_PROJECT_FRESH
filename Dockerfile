@@ -71,5 +71,3 @@ ENV PORT=8080
 EXPOSE ${PORT}
 
 ENTRYPOINT java -Dserver.port=${PORT} -jar server.jar
-
-# a
