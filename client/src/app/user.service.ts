@@ -37,9 +37,12 @@ export class UserService {
   }
 
   removeDeal(uuid: string){
+    console.log('in remove deal function');
     const index = this.dealIDsForSaving.findIndex(dealUUID => dealUUID === uuid);
     if (index !== -1) {
+      console.log(`found deal ${uuid} to delete`);
       this.dealIDsForSaving.splice(index, 1);
+      console.log(this.dealIDsForSaving.length);
     }
   }
 
