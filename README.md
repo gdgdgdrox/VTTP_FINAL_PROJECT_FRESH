@@ -1,10 +1,7 @@
-![Banner](https://github.com/gdgdgdrox/VTTP_FINAL_PROJECT_FRESH/blob/main/readme-banner.png)
-# SG Deals Finder
-
+![Banner](https://github.com/gdgdgdrox/VTTP_FINAL_PROJECT_FRESH/blob/main/banner.png)
 ## Description
 
-This application retrieves a list of deals (i.e. promotions) from an [API](https://tih-dev.stb.gov.sg/deals-user-and-provider-api/apis/get/content/deals/v2/search) 
-maintained by the Singapore Tourism Information & Services Hub (TIH).
+This application retrieves a list of deals (i.e. promotions) from an [API](https://tih-dev.stb.gov.sg/deals-user-and-provider-api/apis/get/content/deals/v2/search) maintained by the Singapore Tourism Information & Services Hub (TIH).
 
 ## Technical Stack
 
