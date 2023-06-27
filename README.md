@@ -23,5 +23,17 @@ Github Actions for CI/CD
 
 ## Demonstration
 ### Home Page
+- Users can search for a deal that they are interested in
+- Users can select a category to see the deals available under that category
 ![Home Page](https://github.com/gdgdgdrox/VTTP_FINAL_PROJECT_FRESH/blob/main/readme-images/home-page.png)
+
+### Deal Listing
+- A list of available and valid deals are displayed
+![deal-listing](https://github.com/gdgdgdrox/VTTP_FINAL_PROJECT_FRESH/blob/main/readme-images/fnb-deals.png)
+
+- Click on the the deal to reveal more information
+![deal-info](https://github.com/gdgdgdrox/VTTP_FINAL_PROJECT_FRESH/blob/main/readme-images/detailed-deal-info-2.png)
+
+### Registration Page
+![registration-page](https://github.com/gdgdgdrox/VTTP_FINAL_PROJECT_FRESH/blob/main/readme-images/registration-page.png)
 
