@@ -5,19 +5,19 @@ This application retrieves a list of deals (i.e. promotions) from an [API](https
 
 ## Technical Stack
 
-##### Client
-Angular
-Bootstrap 
+#### Client
+Angular  
+Bootstrap  
 
-#### Server
+### Server
 Spring Boot
 
 #### Persistence
-MySQL
-Redis
+MySQL  
+Redis  
 DigitalOcean Spaces
 
-#### Deployment
-Containerized using Docker and deployed to Railway
+### Deployment
+Containerized using Docker and deployed to Railway  
 Github Actions is used for CI/CD
 
