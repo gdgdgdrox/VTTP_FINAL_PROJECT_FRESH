@@ -35,5 +35,5 @@ Github Actions for CI/CD
 ![deal-info](https://github.com/gdgdgdrox/VTTP_FINAL_PROJECT_FRESH/blob/main/readme-images/detailed-deal-info-2.png)
 
 ### Registration Page
-![registration-page](https://github.com/gdgdgdrox/VTTP_FINAL_PROJECT_FRESH/blob/main/readme-images/registration-page.png)
+![registration-page](https://github.com/gdgdgdrox/VTTP_FINAL_PROJECT_FRESH/blob/main/readme-images/clean-registration-page.png)
 
