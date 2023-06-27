@@ -5,17 +5,19 @@ This application retrieves a list of deals (i.e. promotions) from an [API](https
 
 ## Technical Stack
 
-Client : Angular
-Server : Spring Boot
-Persistence : MySQL, Redis, DigitalOcean Spaces
-Deployment: 
-The application is containerized using Docker and deployed to Railway. 
+##### Client
+Angular
+Bootstrap 
+
+#### Server
+Spring Boot
+
+#### Persistence
+MySQL
+Redis
+DigitalOcean Spaces
+
+#### Deployment
+Containerized using Docker and deployed to Railway
 Github Actions is used for CI/CD
 
-
-
-If you want to acknowledge any external resources or individuals who have contributed to your project, you can include them in this section.
-
-## Contact
-
-Provide your contact information (e.g., email address) if you want people to be able to reach out to you with questions or feedback.
