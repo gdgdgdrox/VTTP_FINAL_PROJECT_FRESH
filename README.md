@@ -21,3 +21,7 @@ DigitalOcean Spaces
 Containerized using Docker and deployed to Railway  
 Github Actions for CI/CD
 
+## Demonstration
+### Home Page
+!(Home Page)[https://github.com/gdgdgdrox/VTTP_FINAL_PROJECT_FRESH/blob/main/readme-images/home-page.png]
+
