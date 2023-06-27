@@ -1,3 +1,4 @@
+![Banner](https://github.com/gdgdgdrox/VTTP_FINAL_PROJECT_FRESH/blob/main/readme-banner.png)
 # SG Deals Finder
 
 ## Description
