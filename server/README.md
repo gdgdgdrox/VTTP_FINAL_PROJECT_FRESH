@@ -1,2 +1,0 @@
-Singapore Deal Finder
-API from the Tourism Information & Services Hub (TIH) - a digital resource platform for businesses to access relevant information on Singapore's tourism offerings and travel software services.
